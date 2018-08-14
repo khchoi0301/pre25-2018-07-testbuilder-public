@@ -12,16 +12,40 @@ var detectNetwork = function(cardNumber) {
     return 'Diner\'s Club';
   } else if ((cardNumber.substring(0,2)==='34' || cardNumber.substring(0,2)==='37') && cardNumber.length === 15) {
     return 'American Express';
-  } else if (cardNumber.substring(0,1)==='4' && (cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19)){
-    return 'Visa';
   } else if ((cardNumber.substring(0,2)==='51' || cardNumber.substring(0,2)==='52'|| cardNumber.substring(0,2)==='53'|| cardNumber.substring(0,2)==='54'|| cardNumber.substring(0,2)==='55') && cardNumber.length === 16){
     return 'MasterCard';
+  } else if ((cardNumber.substring(0,4)==='6011'||cardNumber.substring(0,3)==='644'|| cardNumber.substring(0,3)==='645'||cardNumber.substring(0,3)==='646'||
+          cardNumber.substring(0,3)==='647'||cardNumber.substring(0,3)==='648'||cardNumber.substring(0,3)==='649'||cardNumber.substring(0,2)==='65') && (cardNumber.length === 16 || cardNumber.length === 19)){
+    return 'Discover';
+  } else if ((cardNumber.substring(0,4)==='5018'||cardNumber.substring(0,4)==='5020'||cardNumber.substring(0,4)==='5038'||cardNumber.substring(0,4)==='6304')&&(cardNumber.length>=12&&cardNumber.length<=19)){
+    return 'Maestro'
+  } else if (((Number(cardNumber.substring(0,6))>=622126&&Number(cardNumber.substring(0,6))<=622925)||Number(cardNumber.substring(0,3))===624
+          ||Number(cardNumber.substring(0,3))===625||Number(cardNumber.substring(0,3))===626
+          ||(Number(cardNumber.substring(0,4))>=6282&&Number(cardNumber.substring(0,4))<=6288))
+          && (cardNumber.length >= 16||cardNumber.length <= 19)){
+    return 'China UnionPay'
+  } else if ((cardNumber.substring(0,4)==='4903' ||cardNumber.substring(0,4)==='4905' ||cardNumber.substring(0,4)==='4911' 
+  ||cardNumber.substring(0,4)==='4936' ||cardNumber.substring(0,4)==='4911' ||cardNumber.substring(0,6)==='564182' 
+  ||cardNumber.substring(0,6)==='633110' ||cardNumber.substring(0,4)==='6333'||cardNumber.substring(0,4)==='6759')
+  &&(cardNumber.length === 16||cardNumber.length === 18||cardNumber.length === 19)){
+    return 'Switch'
+  } else if (cardNumber.substring(0,1)==='4' && (cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19)){
+    return 'Visa';
   }
 
 
 
+};
+
+
+//China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+//Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+
+// 'Discover' 'has a prefix of 6011 and a length of 16', 'has a prefix of 6011 and a length of 19'
+//Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+//Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
   
-/*  
+/* 
   Visa always has a prefix of 4 and a length of 13, 16, or 19.
 MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16.
 */
@@ -30,4 +54,4 @@ MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16.
   // The American Express network always starts with a 34 or 37 and is 15 digits long
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
-};
+
